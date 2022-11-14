@@ -43,7 +43,6 @@ pridej(20, 15);
 pridej(30, 10, true);
 pridej(25, 10);
 pridej(25, 0);
-pridej(25, 5);
 pridej(25, 5, true);
 pridej(30, 5);
 pridej(25, 0, true);
@@ -70,27 +69,27 @@ pridej(0, 0, true);
 
 const instrukce: string[] = [];
 
-instrukce.push(`G0 X0 Y0 Z100`);
+instrukce.push(`G00 X0 Y0 Z100`);
 
 body.forEach((bod, i) => {
   // zacina se zde obrabet?
   const prvni = i === 0 || (i !== 0 && !bod.posledni && body[i - 1].posledni);
 
   if (i === 0) {
-    instrukce.push(`M3 S${otacky}`);
+    instrukce.push(`M03 S${otacky}`);
   }
 
   // zapnout obrabeni a jet dolu
   if (prvni) {
-    instrukce.push(`G1 Z${hloubka} F${rychlost}`);
+    instrukce.push(`G01 Z${hloubka} F${rychlost}`);
   }
 
   if (bod.posledni) {
-    instrukce.push(`G0 Z2`);
+    instrukce.push(`G00 Z2`);
   }
 
   let tempInstrukce = ``;
-  tempInstrukce += bod.posledni ? "G0 " : "G1 ";
+  tempInstrukce += bod.posledni ? "G00 " : "G01 ";
 
   // nová souřadnice x
   if (i === 0 || (i !== 0 && body[i - 1].x !== bod.x)) {
@@ -103,14 +102,18 @@ body.forEach((bod, i) => {
   i !== 0 && instrukce.push(tempInstrukce);
 });
 
-instrukce.push(`M5`);
-instrukce.push(`G0 Z100`);
+instrukce.push(`M05`);
+instrukce.push(`G00 Z100`);
 instrukce.push(`M30`);
 
 let result = "";
 
 instrukce.forEach((i, index) => {
-  result += `N0${index + 1} ${i}`;
+  if (index + 1 < 10) {
+    result += `N0${index + 1} ${i}`;
+  } else {
+    result += `N${index + 1} ${i}`;
+  }
   switch (index) {
     case 0:
       result += "; zvednutí nad materiál";
@@ -127,13 +130,13 @@ instrukce.forEach((i, index) => {
     case 28:
       result += "; písmeno E";
       break;
-    case 42:
+    case 41:
       result += "; písmeno R";
       break;
-    case 50:
+    case 49:
       result += "; písmeno A";
       break;
-    case 59:
+    case 58:
       result += "; spuštění do výchozího bodu";
       break;
     default:
