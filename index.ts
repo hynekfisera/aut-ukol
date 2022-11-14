@@ -4,7 +4,7 @@ type Y = 0 | 5 | 10 | 12.5 | 15;
 type Bod = {
   x: X;
   y: Y;
-  posledni: boolean; // pokud ano tak se před přesunem nástroj vypne
+  posledni: boolean; // byl **předchozí** bod poslední v dané části? pokud ano tak se nástroj před přesunem na tento bod zvedne nad materiál
 };
 
 const otacky = 1500; // ot/min
