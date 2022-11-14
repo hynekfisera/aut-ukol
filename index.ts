@@ -46,6 +46,8 @@ pridej(25, 0);
 pridej(25, 5);
 pridej(25, 5, true);
 pridej(30, 5);
+pridej(25, 0, true);
+pridej(30, 0);
 
 // R
 pridej(35, 0, true);
@@ -125,13 +127,13 @@ instrukce.forEach((i, index) => {
     case 28:
       result += "; písmeno E";
       break;
-    case 38:
+    case 42:
       result += "; písmeno R";
       break;
-    case 46:
+    case 50:
       result += "; písmeno A";
       break;
-    case 55:
+    case 59:
       result += "; spuštění do výchozího bodu";
       break;
     default:
